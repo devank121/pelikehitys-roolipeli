@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2978581206352472586, guid: 1f5f9a7f627497d42a37ac1e38798ee4, type: 3}
   m_Color: {r: 0.990566, g: 0.5846334, b: 0.2476415, a: 1}
   m_FlipX: 0
@@ -239,3 +239,4 @@ MonoBehaviour:
   OpenDoorSprite: {fileID: 1814097958, guid: be6c6fb71095387478791db9b775bc03, type: 3}
   LockedSprite: {fileID: -2978581206352472586, guid: 1f5f9a7f627497d42a37ac1e38798ee4, type: 3}
   UnlockedSprite: {fileID: -6883786895430283290, guid: 1f5f9a7f627497d42a37ac1e38798ee4, type: 3}
+  ShowDebugUI: 0

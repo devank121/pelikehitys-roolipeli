@@ -4296,6 +4296,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: cursors_tilemap_182
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aca8a59c643671f4b9de82ec0d1f1fc2
+      internalID: -771557453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -4403,6 +4425,7 @@ TextureImporter:
       cursors_tilemap_18: -1803032325981692351
       cursors_tilemap_180: 414788453
       cursors_tilemap_181: 796770344
+      cursors_tilemap_182: -771557453
       cursors_tilemap_19: -2978581206352472586
       cursors_tilemap_2: -3562959976025445090
       cursors_tilemap_20: -3486571801700497575
