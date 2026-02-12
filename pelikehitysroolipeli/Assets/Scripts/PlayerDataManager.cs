@@ -17,7 +17,7 @@ public class PlayerDataManager : MonoBehaviour
         if (amount > 0)
         {
             health += amount;
-            UpdateValues;
+
         }
 
     }
