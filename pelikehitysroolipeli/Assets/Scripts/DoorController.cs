@@ -3,6 +3,17 @@ using UnityEngine.Rendering;
 
 public class DoorController : MonoBehaviour
 {
+    // Oven tilat
+    public enum DoorState
+    {
+        Open,
+        Closed,
+        Locked
+    }
+
+    // Oven nykyinen tila
+    DoorState currentState;
+
     // Kuvat oven eri tiloille
     [SerializeField]
     Sprite ClosedDoorSprite;
@@ -39,20 +50,66 @@ public class DoorController : MonoBehaviour
             lockSprite = sprites[1];
         }
 
-        
+
         lockedColor = new Color(1.0f, 0.63f, 0.23f);
         openColor = new Color(0.5f, 0.8f, 1.0f);
 
 
-         // TODO
-         // missä tilassa ovi on kun peli alkaa?
+        // TODO
+        // missä tilassa ovi on kun peli alkaa?
+        // Ovi alkaa suljettuna
+        currentState = DoorState.Closed;
+        CloseDoor();
+        UnlockDoor();
     }
 
     /// <summary>
     /// Oveen kohdistuu jokin toiminto joka muuttaa sen tilaa
     /// </summary>
-    public void ReceiveAction()
+    public enum DoorAction
     {
+        Open,
+        Close,
+        Lock,
+        Unlock
+    }
+    public void ReceiveAction(DoorAction action)
+    {
+        switch (action)
+        {
+            case DoorAction.Open:
+                if (currentState == DoorState.Closed)
+                {
+                    OpenDoor();
+                    currentState = DoorState.Open;
+                }
+                break;
+
+            case DoorAction.Close:
+                if (currentState == DoorState.Open)
+                {
+                    CloseDoor();
+                    currentState = DoorState.Closed;
+                }
+                break;
+
+            case DoorAction.Lock:
+                if (currentState == DoorState.Closed)
+                {
+                    LockDoor();
+                    currentState = DoorState.Locked;
+                }
+                break;
+
+            case DoorAction.Unlock:
+                if (currentState == DoorState.Locked)
+                {
+                    UnlockDoor();
+                    currentState = DoorState.Closed;
+                }
+                break;
+
+        }
         
     }
 
@@ -110,7 +167,7 @@ public class DoorController : MonoBehaviour
     // toimivat oikein.
 
 
-  
+
 
     // Unity kutsuu tätä funktiota kaiken muun piirtämisen jälkeen
     // Sen sisällä voi piirtää käyttöliittymää
@@ -126,7 +183,7 @@ public class DoorController : MonoBehaviour
         labelStyle.fontSize = DebugFontSize;
         Rect guiRect = GetGuiRect();
         GUILayout.BeginArea(guiRect);
-        
+
         GUILayout.Label("Door");
         if (GUILayout.Button("Open"))
         {
@@ -140,18 +197,18 @@ public class DoorController : MonoBehaviour
         {
             LockDoor();
         }
-        if (GUILayout.Button( "Unlock"))
+        if (GUILayout.Button("Unlock"))
         {
             UnlockDoor();
         }
-        
+
         GUILayout.EndArea();
     }
 
     // Näiden kahden funktion avulla ei tarvitse itse
     // määrittää jokaisen napin paikkaa, vaan ne
     // ladotaan automaattisesti allekkain.
-   
+
 
     private Rect GetGuiRect()
     {
@@ -165,8 +222,10 @@ public class DoorController : MonoBehaviour
         // ja siksi se pitä vähentää ruudun korkeudesta.
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(buttonPos);
         float screenHeight = Screen.height;
-        return new Rect(screenPoint.x, screenHeight - screenPoint.y, 
+        return new Rect(screenPoint.x, screenHeight - screenPoint.y,
             DebugFontSize * 8,  // Leveys ja korkeus niin että varmasti mahtuu
             DebugFontSize * 100);
-    }    
+    }
 }
+
+
