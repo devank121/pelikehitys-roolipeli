@@ -37,9 +37,7 @@ public class PlayerDataManager : MonoBehaviour
         UpdateUI();
     }
 
-    // =========================
-    // REQUIRED FUNCTIONS
-    // =========================
+   
 
     public void AddExperience(int amount)
     {
@@ -97,9 +95,7 @@ public class PlayerDataManager : MonoBehaviour
         return false;
     }
 
-    // =========================
-    // UI UPDATE
-    // =========================
+    
 
     private void UpdateUI()
     {
@@ -113,9 +109,7 @@ public class PlayerDataManager : MonoBehaviour
             coinsText.text = "Coins: " + coins;
     }
 
-    // =========================
-    // DEBUG OnGUI
-    // =========================
+   
 
     private void OnGUI()
     {
