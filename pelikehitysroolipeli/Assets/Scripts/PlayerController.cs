@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     Button lockButton;
     Button unlockButton;
     Reppu reppu = new Reppu(10, 10.0f, 15.0f);
+    float viimeksiAmmuttu = 0f;      // time when player last shot
+    float ampumisvali = 0.5f;        // minimum time between shots
 
     // New variables for chosen weapon and arrow
     GameObject chosenArrowPrefab;
@@ -40,7 +42,10 @@ public class PlayerController : MonoBehaviour
         P‰ivit‰ReppuUI();
     }
 
-    void Update() { }
+    void Update()
+    {
+        HandleMouseClick();
+    }
 
     private void FixedUpdate()
     {
@@ -165,5 +170,51 @@ public class PlayerController : MonoBehaviour
     {
         reppuText.text = reppu.ToString();
         reppuUI.P‰ivit‰ReppuUI(reppu);
+    }
+
+    public void ShootArrow(Vector3 target)
+    {
+        // Check if enough time has passed since last shot
+        if (Time.time - viimeksiAmmuttu < ampumisvali)
+        {
+            return;
+        }
+
+        // Check if we have an arrow selected
+        if (chosenArrowPrefab == null)
+        {
+            Debug.Log("Ei valittua nuolta!");
+            return;
+        }
+
+        // Calculate direction from player to target
+        Vector3 suunta = (target - transform.position).normalized;
+
+        // Calculate rotation so arrow tip points toward target
+        float kulma = Mathf.Atan2(suunta.y, suunta.x) * Mathf.Rad2Deg;
+        Quaternion rotaatio = Quaternion.Euler(0, 0, kulma);
+
+        // Create the arrow at player position with correct rotation
+        GameObject nuoli = Instantiate(chosenArrowPrefab, transform.position, rotaatio);
+
+        // Get the ArrowController and set it moving
+        ArrowController ac = nuoli.GetComponent<ArrowController>();
+        Rigidbody2D rb = nuoli.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = suunta * ac.speed;
+
+        // Save the time we shot
+        viimeksiAmmuttu = Time.time;
+    }
+
+    void HandleMouseClick()
+    {
+        if (Input.GetMouseButtonDown(0)) // left mouse button
+        {
+            // Convert mouse position to world position
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f; // make sure z is 0 for 2D
+
+            ShootArrow(mousePos);
+        }
     }
 }
