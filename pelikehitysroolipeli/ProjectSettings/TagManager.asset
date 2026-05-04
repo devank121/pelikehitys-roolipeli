@@ -7,14 +7,15 @@ TagManager:
   - Door
   - Merchant
   - Item
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - arrow
   - Water
   - UI
-  - 
+  - player
   - 
   - 
   - 

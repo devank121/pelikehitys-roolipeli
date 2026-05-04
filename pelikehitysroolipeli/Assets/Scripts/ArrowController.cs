@@ -7,14 +7,29 @@ public class ArrowController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        // Don't react to the player
         if (other.gameObject.CompareTag("Player"))
         {
             return;
         }
 
-        // Print what we hit and destroy the arrow
-        Debug.Log("Nuoli osui: " + other.gameObject.name);
+        Debug.Log("Nuoli osui: " + other.gameObject.name + " tag: " + other.gameObject.tag);
+
+        // Check if we hit a ghost
+        GhostController ghost = other.gameObject.GetComponent<GhostController>();
+        if (ghost != null)
+        {
+            Debug.Log("Osui ghostiin! Vahinko: " + damage);
+            ghost.OtaVahinko(damage);
+        }
+
+        // Check if we hit a crab
+        CrabController crab = other.gameObject.GetComponent<CrabController>();
+        if (crab != null)
+        {
+            Debug.Log("Osui rapuun! Vahinko: " + damage);
+            crab.OtaVahinko(damage);
+        }
+
         Destroy(gameObject);
     }
 }
